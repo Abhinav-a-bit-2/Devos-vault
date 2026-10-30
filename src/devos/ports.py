@@ -1,0 +1,66 @@
+"""Dependency contracts used by the application and source adapters."""
+
+from __future__ import annotations
+
+from contextlib import AbstractContextManager
+from dataclasses import dataclass
+from typing import Any, Callable, Protocol
+
+from devos.core import Batch, Descriptor, Target
+
+
+@dataclass(frozen=True)
+class Response:
+    status: int
+    headers: dict[str, str]
+    body: bytes
+
+
+@dataclass(frozen=True)
+class Document:
+    snapshot_id: str
+    body: bytes
+    freshness: str
+    status: int
+
+
+class Transport(Protocol):
+    def get(self, url: str, headers: dict[str, str]) -> Response: ...
+
+
+class Fetcher(Protocol):
+    def fetch(self, resource_key: str, url: str) -> Document: ...
+
+
+class Adapter(Protocol):
+    descriptor: Descriptor
+
+    def match(self, value: str) -> int: ...
+    def discover(self, value: str) -> Target: ...
+    def extract(self, target: Target, fetcher: Fetcher) -> Batch: ...
+
+
+class Storage(Protocol):
+    """The service's vault port. SQLite implements this; clients never execute SQL."""
+
+    def transaction(self) -> AbstractContextManager[Any]: ...
+    def one(self, sql: str, args: tuple[Any, ...] = ()) -> Any: ...
+    def all(self, sql: str, args: tuple[Any, ...] = ()) -> list[dict[str, Any]]: ...
+    def execute(self, sql: str, args: tuple[Any, ...] = ()) -> Any: ...
+    def put_snapshot(self, adapter: str, resource: str, url: str, body: bytes, status: int,
+                     headers: dict[str, str], cache_scope: str, *, observed_at: str | None = None) -> str: ...
+    def latest_snapshot(self, adapter: str, resource: str, cache_scope: str) -> dict[str, Any] | None: ...
+    def snapshot(self, snapshot_id: str) -> dict[str, Any]: ...
+    def create_job(self, inputs: list[str], *, mode: str, config: dict[str, Any]) -> str: ...
+    def claim_target(self, target_id: str, *, producer: str, version: str, config: str,
+                     ttl: float = 300, max_attempts: int = 3) -> dict[str, Any] | None: ...
+    def check_lease(self, target_id: str, token: str) -> Any: ...
+    def finish_target(self, target_id: str, token: str, *, state: str, result: Any = None,
+                      error: Any = None, retry_at: float | None = None, coverage: Any = None) -> None: ...
+    def event(self, job_id: str, target_id: str | None, status: str, **payload: Any) -> None: ...
+    def summarize(self, job_id: str) -> dict[str, Any]: ...
+    def rebuild_view(self, entity_id: str) -> None: ...
+    def entity(self, entity_id: str, provenance: bool = False) -> dict[str, Any]: ...
+
+
+Clock = Callable[[], float]

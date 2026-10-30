@@ -1,0 +1,13 @@
+{
+  "id": 101,
+  "full_name": "Example/VectorKit",
+  "private": false,
+  "description": "A small vector search library",
+  "language": "Python",
+  "topics": ["search", "vectors"],
+  "license": {"spdx_id": "MIT"},
+  "stargazers_count": 42,
+  "forks_count": 3,
+  "archived": false,
+  "default_branch": "main"
+}

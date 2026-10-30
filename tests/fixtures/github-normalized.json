@@ -1,0 +1,20 @@
+{
+  "entity_type": "repository",
+  "identifiers": [
+    ["github.com:repository", "101", "authoritative"],
+    ["url", "https://github.com/example/vectorkit", "alias"]
+  ],
+  "facts": [
+    {"predicate": "name", "value": "Example/VectorKit", "scope": "repository.metadata", "locator": {"json_pointer": "/full_name"}},
+    {"predicate": "canonical_url", "value": "https://github.com/example/vectorkit", "scope": "repository.metadata", "locator": {"json_pointer": "/full_name"}},
+    {"predicate": "metadata", "value": {"language": "Python", "topics": ["search", "vectors"], "license": {"spdx_id": "MIT"}, "stargazers_count": 42, "forks_count": 3, "archived": false, "default_branch": "main"}, "scope": "repository.metadata", "locator": {"json_pointer": "/"}},
+    {"predicate": "description", "value": "A small vector search library", "scope": "repository.metadata", "locator": {"json_pointer": "/description"}},
+    {"predicate": "readme", "value": "# VectorKit\nVector search for local vaults.", "scope": "repository.readme", "locator": {"path": "README.md", "json_pointer": "/content"}}
+  ],
+  "scopes": [
+    {"name": "repository.metadata", "snapshot_id": "repository.json", "complete": true, "freshness": "fresh"},
+    {"name": "repository.readme", "snapshot_id": "readme.json", "complete": true, "freshness": "fresh"}
+  ],
+  "warnings": [],
+  "references": []
+}

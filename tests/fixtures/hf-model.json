@@ -1,0 +1,8 @@
+{
+  "_id": "model-fixture-001", "id": "example/research-model", "private": false,
+  "description": "A model that connects papers, code, and datasets.",
+  "pipeline_tag": "text-generation", "library_name": "transformers", "author": "example",
+  "tags": ["arxiv:1706.03762", "text-generation"], "downloads": 1234, "likes": 25,
+  "sha": "fixture-revision-1", "lastModified": "2026-10-26T12:00:00Z", "gated": false,
+  "cardData": {"base_model": "example/base-model", "base_model_relation": "quantized", "datasets": ["example/research-corpus"], "license": "apache-2.0"}
+}

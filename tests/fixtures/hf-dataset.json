@@ -1,0 +1,6 @@
+{
+  "_id": "dataset-fixture-001", "id": "example/research-corpus", "private": false,
+  "description": "A small research corpus for reproducible experiments.",
+  "tags": ["text", "language:en"], "downloads": 678, "likes": 12,
+  "cardData": {"language": ["en"], "license": "mit"}
+}
