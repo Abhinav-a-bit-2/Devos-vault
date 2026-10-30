@@ -76,5 +76,3 @@ python -m pip wheel . --no-deps --wheel-dir dist
 ```
 
 `npm run build` writes the packaged UI into `src/devos/web_dist`. The default test suite uses fixture transports and makes no live HTTP requests. CI tests Python 3.11–3.14 on Windows and Linux, builds the UI, and tests an installed wheel. The adapter contract is `devos.ports.Adapter`; external packages can register entry points under `devos.adapters` and are loaded only when selected explicitly.
-
-See [implementation status](docs/implementation-status.md) for the current scope. The planning documents remain [architecture](docs/architecture.md), [data model](docs/data-model.md), [adapter contract](docs/adapter-contract.md), [milestone 1](docs/milestone-1.md), [milestone 2](docs/milestone-2.md), and [recommendation review](docs/recommendation-review.md).
